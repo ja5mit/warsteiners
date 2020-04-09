@@ -1,0 +1,138 @@
+﻿@model HW7.Models.ViewModels.Details
+   
+<style>
+ .btn {
+  background-color: maroon; 
+  border: none;
+  color: antiquewhite;
+  padding: 8px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+    }
+
+ body{
+     background-color: floralwhite
+ }
+
+    .result {
+        border-style: groove;
+        border-left-color: maroon;
+        border-right-color: maroon;
+        border-bottom-color: maroon;
+        border-top-color: maroon;
+        background-color: antiquewhite;
+        color: maroon;
+        font-family: Verdana;
+        font-size: 15px;
+       
+             
+    } .FullName {
+        font-family: Impact;
+        font-size: 20px;
+        color: maroon;
+    }
+
+ table {
+  border-collapse: collapse;
+
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+   border: 1px solid maroon;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+td{
+     background-color: antiquewhite;
+  color: maroon;
+}
+
+th {
+  background-color: maroon;
+  color: antiquewhite;
+}
+      
+</style>
+@{
+    ViewBag.Title = "GitHub Page";
+ 
+
+}
+ <body>
+
+     <div class="container">
+         <!-- First Row -->
+
+            <!-- This will make a box filled with the information -->
+
+            <div class="row">
+
+                <div class="col-md-3 result ">
+                    <div class="FullName">
+                        @Html.DisplayFor(modelItem => Model.fullname)
+                    </div>
+                    @Html.DisplayFor(modelItem => Model.user)
+                    <br />
+                    @Html.DisplayFor(modelItem => Model.email)
+                    <br />
+                    <img src=@Model.picture alt="Photo" width="125" height="125" />
+
+                </div>
+            </div>
+
+            @foreach (var item in Model.ReposList)
+            {
+                if (item != null)
+                {
+                    <div class="row">
+                        <div class="col-md-3 result ">
+
+
+                            <div class="col-md-4" style="width: 350px">
+                                <div id="repoName">
+                                    @Html.DisplayFor(modelItem => item.reponame)
+                                </div>
+                                <br />
+                                <div id="ownerName">
+                                    @Html.DisplayFor(modelItem => item.owner)
+                                </div>
+                                <br />
+                                <img src=@item.ownerpic alt="Photo" width="15" height="15" />
+                                <br />
+                                @Html.DisplayFor(modelItem => item.updated)
+                                <br />
+                                <button class="btn" onclick="intial( '@item.owner', '@item.reponame')">View Commits</button>
+                       
+
+
+                            </div>
+
+
+                        </div>
+                        <br />
+                        <table id="@item.reponame">
+                        </table>
+
+
+
+                    </div>
+
+                }
+            }
+
+            <div id="myTable">
+                <table id="tableLocation"></table>
+            </div>
+            @section scripts {
+                <script type="text/javascript" src="~/Scripts/main.js"></script>
+                <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+            }
+     </div>
+ </body>
+
+   
